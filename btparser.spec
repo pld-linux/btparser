@@ -1,7 +1,7 @@
 Summary:	Parser and analyzer for backtraces produced by GDB
 Name:		btparser
 Version:	0.20
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Applications
 Source0:	https://fedorahosted.org/released/abrt/%{name}-%{version}.tar.xz
