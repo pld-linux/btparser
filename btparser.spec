@@ -1,7 +1,7 @@
 Summary:	Parser and analyzer for backtraces produced by GDB
 Name:		btparser
 Version:	0.20
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications
 Source0:	https://fedorahosted.org/released/abrt/%{name}-%{version}.tar.xz
@@ -111,5 +111,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libbtparser.so
 
 %files -n python-btparser
+%dir %{py_sitedir}/btparser
 %{py_sitedir}/btparser/*.py*
 %attr(755,root,root) %{py_sitedir}/btparser/*.so
