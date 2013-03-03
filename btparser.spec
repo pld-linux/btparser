@@ -1,19 +1,23 @@
 Summary:	Parser and analyzer for backtraces produced by GDB
 Summary(pl.UTF-8):	Analizator śladów wywołań tworzonych przez GDB
 Name:		btparser
-Version:	0.20
-Release:	2
-License:	GPL v2
+Version:	0.25
+Release:	1
+License:	GPL v2+
 Group:		Development/Tools
-Source0:	https://fedorahosted.org/released/abrt/%{name}-%{version}.tar.xz
-# Source0-md5:	dac50574a3015d6ca6eb588a2efb4686
-URL:		http://fedorahosted.org/btparser
+Source0:	https://fedorahosted.org/released/btparser/%{name}-%{version}.tar.xz
+# Source0-md5:	7fcf3f97dd6df827151638a41855c5bb
+URL:		http://fedorahosted.org/btparser/
 %ifarch %{x8664}
 BuildRequires:	binutils-static
 %endif
+BuildRequires:	glib2-devel >= 1:2.21
+BuildRequires:	pkgconfig
 BuildRequires:	python-devel
 BuildRequires:	python-distribute
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	xmlto
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -57,8 +61,7 @@ wywołań:
 Summary:	Btparser library
 Summary(pl.UTF-8):	Biblioteka btparser
 Group:		Libraries
-Requires:	python-libs
-Requires:	python-modules
+Requires:	glib2 >= 1:2.21
 
 %description libs
 Btparser library.
@@ -71,6 +74,7 @@ Summary:	Header files for %{name} library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki %{name}
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
+Requires:	glib2-devel >= 1:2.21
 
 %description devel
 Header files for %{name} library.
@@ -83,6 +87,7 @@ Summary:	Python bindings for %{name}
 Summary(pl.UTF-8):	Wiązania Pythona do biblioteki btparser
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{version}-%{release}
+Requires:	python-modules
 
 %description -n python-btparser
 Python bindings for %{name}.
@@ -108,6 +113,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la $RPM_BUILD_ROOT%{py_sitedir}/btparser/*.la
+
+%py_postclean
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -135,5 +142,5 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python-btparser
 %defattr(644,root,root,755)
 %dir %{py_sitedir}/btparser
-%{py_sitedir}/btparser/*.py*
-%attr(755,root,root) %{py_sitedir}/btparser/*.so
+%{py_sitedir}/btparser/__init__.py[co]
+%attr(755,root,root) %{py_sitedir}/btparser/_btparser.so
