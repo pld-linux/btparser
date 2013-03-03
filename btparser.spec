@@ -1,9 +1,10 @@
 Summary:	Parser and analyzer for backtraces produced by GDB
+Summary(pl.UTF-8):	Analizator śladów wywołań tworzonych przez GDB
 Name:		btparser
 Version:	0.20
 Release:	2
 License:	GPL v2
-Group:		Applications
+Group:		Development/Tools
 Source0:	https://fedorahosted.org/released/abrt/%{name}-%{version}.tar.xz
 # Source0-md5:	dac50574a3015d6ca6eb588a2efb4686
 URL:		http://fedorahosted.org/btparser
@@ -34,6 +35,24 @@ routines:
   frames with and without the function name known (missing function
   name is caused by missing debugging symbols)
 
+%description -l pl.UTF-8
+Btparser to analizator śladów wywołań (backtrace'ów), działający ze
+śladami tworzonymi przez debugger GDB z projektu GNU. Potrafi
+przetworzyć plik tekstowy ze śladem na drzewo struktur C, co pozwala
+na analizę wątków oraz ramek śladu wywołań i dalszą pracę z nimi.
+
+Btparser zawiera także trochę procedur do obróbki i wydobywania śladów
+wywołań:
+- potrafi znaleźć ramkę w pośmiertnym śladzie wywołań, w której
+  najprawdopodobniej nastąpiła wywrotka programu (możliwe, że to
+  funkcja w tej ramce zawiera błąd)
+- potrafi utworzyć skrót (hasz) śladu, pozwalający wykryć, czy dwa
+  zadane ślady pośmiertne są duplikatami spowodowanymi tym samym
+  błędem w kodzie
+- potrafi "ocenić jakość" śladów, zależną od liczby ramek ze znaną i
+  bez znanej nazwy funkcji (brak nazwy funkcji wynika z braku symboli
+  diagnostycznych)
+
 %package libs
 Summary:	Btparser library
 Summary(pl.UTF-8):	Biblioteka btparser
@@ -42,7 +61,7 @@ Requires:	python-libs
 Requires:	python-modules
 
 %description libs
-Btparser libraries
+Btparser library.
 
 %description libs -l pl.UTF-8
 Biblioteka btparser.
@@ -61,22 +80,25 @@ Pliki nagłówkowe biblioteki %{name}.
 
 %package -n python-btparser
 Summary:	Python bindings for %{name}
-Group:		Development/Libraries
+Summary(pl.UTF-8):	Wiązania Pythona do biblioteki btparser
+Group:		Libraries/Python
 Requires:	%{name}-libs = %{version}-%{release}
 
 %description -n python-btparser
 Python bindings for %{name}.
 
+%description -n python-btparser -l pl.UTF-8
+Wiązania Pythona do biblioteki btparser.
+
 %prep
 %setup -q
 
 %build
-%ifarch %{x8664}
 %configure \
+%ifarch %{x8664}
 	--enable-fingerprints
-%else
-%configure
 %endif
+
 %{__make}
 
 %install
@@ -106,11 +128,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_pkgconfigdir}/btparser.pc
+%attr(755,root,root) %{_libdir}/libbtparser.so
 %{_includedir}/btparser
-%{_libdir}/libbtparser.so
+%{_pkgconfigdir}/btparser.pc
 
 %files -n python-btparser
+%defattr(644,root,root,755)
 %dir %{py_sitedir}/btparser
 %{py_sitedir}/btparser/*.py*
 %attr(755,root,root) %{py_sitedir}/btparser/*.so
