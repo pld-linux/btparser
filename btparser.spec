@@ -2,7 +2,7 @@ Summary:	Parser and analyzer for backtraces produced by GDB
 Summary(pl.UTF-8):	Analizator śladów wywołań tworzonych przez GDB
 Name:		btparser
 Version:	0.25
-Release:	9
+Release:	10
 License:	GPL v2+
 Group:		Development/Tools
 Source0:	https://fedorahosted.org/released/btparser/%{name}-%{version}.tar.xz
