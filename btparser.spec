@@ -1,13 +1,13 @@
 Summary:	Parser and analyzer for backtraces produced by GDB
 Summary(pl.UTF-8):	Analizator śladów wywołań tworzonych przez GDB
 Name:		btparser
-Version:	0.25
-Release:	12
+Version:	0.26
+Release:	1
 License:	GPL v2+
 Group:		Development/Tools
-Source0:	https://fedorahosted.org/released/btparser/%{name}-%{version}.tar.xz
-# Source0-md5:	7fcf3f97dd6df827151638a41855c5bb
-URL:		http://fedorahosted.org/btparser/
+Source0:	https://github.com/abrt/btparser/archive/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	22cb4fe5593344f0acac8936494141f6
+URL:		https://github.com/abrt/btparser
 %ifarch %{x8664}
 BuildRequires:	binutils-static
 %endif
@@ -19,7 +19,6 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xmlto
-BuildRequires:	xz
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -38,8 +37,8 @@ routines:
   discover that two crash-time backtraces are duplicates, triggered by
   the same flaw of the code
 - it can "rate" the backtrace quality, which depends on the number of
-  frames with and without the function name known (missing function
-  name is caused by missing debugging symbols)
+  frames with and without the function name known (missing function name
+  is caused by missing debugging symbols)
 
 %description -l pl.UTF-8
 Btparser to analizator śladów wywołań (backtrace'ów), działający ze
@@ -50,11 +49,11 @@ na analizę wątków oraz ramek śladu wywołań i dalszą pracę z nimi.
 Btparser zawiera także trochę procedur do obróbki i wydobywania śladów
 wywołań:
 - potrafi znaleźć ramkę w pośmiertnym śladzie wywołań, w której
-  najprawdopodobniej nastąpiła wywrotka programu (możliwe, że to
-  funkcja w tej ramce zawiera błąd)
+  najprawdopodobniej nastąpiła wywrotka programu (możliwe, że to funkcja
+  w tej ramce zawiera błąd)
 - potrafi utworzyć skrót (hasz) śladu, pozwalający wykryć, czy dwa
-  zadane ślady pośmiertne są duplikatami spowodowanymi tym samym
-  błędem w kodzie
+  zadane ślady pośmiertne są duplikatami spowodowanymi tym samym błędem
+  w kodzie
 - potrafi "ocenić jakość" śladów, zależną od liczby ramek ze znaną i
   bez znanej nazwy funkcji (brak nazwy funkcji wynika z braku symboli
   diagnostycznych)
