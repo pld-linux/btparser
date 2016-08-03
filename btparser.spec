@@ -2,7 +2,7 @@ Summary:	Parser and analyzer for backtraces produced by GDB
 Summary(pl.UTF-8):	Analizator śladów wywołań tworzonych przez GDB
 Name:		btparser
 Version:	0.26
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Development/Tools
 Source0:	https://github.com/abrt/btparser/archive/%{version}/%{name}-%{version}.tar.gz
